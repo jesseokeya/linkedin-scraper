@@ -5,9 +5,12 @@ from time import sleep, time
 from selenium import webdriver
 from os.path import abspath, dirname, exists
 
+from .helper import Helper
 
-class Scrape:
+
+class Scrape(Helper):
     def __init__(self, url: str = ''):
+        super().__init__(url)
         self.base_dir = dirname(dirname(abspath(__file__)))
         self.chrome_exec = f'{self.base_dir}/chromedriver'
         self.chrome_driver = webdriver.Chrome(executable_path=self.chrome_exec)
@@ -36,7 +39,7 @@ class Scrape:
             driver.find_element_by_xpath(login_button_xpath).click()
 
         except Exception as e:
-            print(e, 'Error occured during login')
+            self.handle_error(e, 'Error occured during login')
 
     def retrieve_images(self) -> List[str]:
         try:
@@ -52,7 +55,7 @@ class Scrape:
 
             return results
         except Exception as e:
-            print(e, 'Error occured during login')
+            self.handle_error(e, 'Error occured while retrieving images')
 
     def retrieve_videos(self) -> List[str]:
         try:
@@ -68,7 +71,7 @@ class Scrape:
 
             return results
         except Exception as e:
-            print(e, 'Error occured during login')
+            self.handle_error(e, 'Error occured while retrieving videos')
 
     def scroll_to_bottom(self, scroll_time_limit: int = 5) -> None:
         try:
@@ -103,7 +106,8 @@ class Scrape:
                 last_height = new_height
 
         except Exception as e:
-            print(e, 'Error occured during login')
+            self.handle_error(
+                e, 'Error occured while scrolling page to bottom')
 
     def write_file(self, *args) -> None:
         try:
@@ -113,7 +117,8 @@ class Scrape:
             file_path: str = f'{self.base_dir}/{file_name}'
             path_exists = exists(file_path)
 
-            file_ctx = open(file_path, 'r+') if path_exists else open(file_path, 'w+')
+            file_ctx = open(
+                file_path, 'r+') if path_exists else open(file_path, 'w+')
 
             if not path_exists:
                 dump(file_data, file_ctx, indent=4)
@@ -122,7 +127,7 @@ class Scrape:
                 self.write_file(file_data, file_name)
 
         except Exception as e:
-            print(e, 'Error occured during login')
+            self.handle_error(e, 'Error occured while writing to file')
 
     def get_url(self) -> str:
         try:
@@ -135,10 +140,11 @@ class Scrape:
             self.__duration(seconds)
             return self.chrome_driver.quit()
         except Exception as e:
-            print(e, 'Error occured during login')
+            self.handle_error(
+                e, 'Error occured while closing the chrome driver')
 
     def __duration(self, seconds: int = 0) -> None:
         try:
             return sleep(seconds)
         except Exception as e:
-            print(e, 'Error occured during login')
+            self.handle_error(e, 'Error occured in chrome driver duration')

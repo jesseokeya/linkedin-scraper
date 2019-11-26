@@ -4,12 +4,12 @@ from typing import List
 def main():
     url: str = 'https://www.linkedin.com/'
     seconds: int = 60
-    username: str = ''
-    password: str = ''
+    username: str = 'jesseokeya@gmail.com'
+    password: str = 'Chukwudifu1'
 
     # Navigates to the url specified
     scrapper = Scrape(url)
-
+    return
     # Takes in credentials to login into the url sepecified
     scrapper.login(username=username, password=password)
 
