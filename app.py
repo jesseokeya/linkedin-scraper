@@ -4,8 +4,8 @@ from typing import List
 def main():
     url: str = 'https://www.linkedin.com/'
     seconds: int = 60
-    username: str = 'jesseokeya@gmail.com'
-    password: str = 'Chukwudifu1'
+    username: str = ''
+    password: str = ''
 
     # Navigates to the url specified
     scrapper = Scrape(url)
