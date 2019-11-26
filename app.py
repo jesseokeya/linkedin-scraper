@@ -4,12 +4,12 @@ from typing import List
 def main():
     url: str = 'https://www.linkedin.com/'
     seconds: int = 60
-    username: str = 'jesseokeya@gmail.com'
-    password: str = 'Chukwudifu1'
+    username: str = ''
+    password: str = ''
 
     # Navigates to the url specified
     scrapper = Scrape(url)
-    return
+
     # Takes in credentials to login into the url sepecified
     scrapper.login(username=username, password=password)
 
@@ -31,8 +31,8 @@ def main():
     # create and write file data to json file
     scrapper.write_file(file_data, 'data.json')
 
-    # Ends the selenium chrome driver after 60 seconds
-    scrapper.end(seconds)
+    # Uncomment to end the selenium chrome driver after 60 seconds
+    # scrapper.end(seconds)
 
 
 main()

@@ -1,22 +1,21 @@
-from os import remove
 from typing import List
-from json import dump, load
-from time import sleep, time
+from time import time
 from selenium import webdriver
-from os.path import abspath, dirname, exists
+from os.path import abspath, dirname
 
 from .helper import Helper
 
-
 class Scrape(Helper):
     def __init__(self, url: str = ''):
-        super().__init__(url)
+        self.url = url
         self.base_dir = dirname(dirname(abspath(__file__)))
+        super().__init__(self.url, self.base_dir)
+
         self.chrome_exec = f'{self.base_dir}/chromedriver'
         self.chrome_driver = webdriver.Chrome(executable_path=self.chrome_exec)
-        self.chrome_driver.get(url)
+
+        self.chrome_driver.get(self.url)
         self.chrome_driver.implicitly_wait(5)
-        self.url = url
 
     def login(self, **kwargs) -> None:
         try:
@@ -92,7 +91,7 @@ class Scrape(Helper):
                     "window.scrollTo(0, document.body.scrollHeight);")
 
                 # Wait to load page
-                self.__duration(SCROLL_PAUSE_TIME)
+                self.duration(SCROLL_PAUSE_TIME)
 
                 # Calculate new scroll height and compare with last scroll height
                 new_height: None = driver.execute_script(
@@ -109,42 +108,10 @@ class Scrape(Helper):
             self.handle_error(
                 e, 'Error occured while scrolling page to bottom')
 
-    def write_file(self, *args) -> None:
-        try:
-            file_data: set = args[0]
-            file_name: str = args[1]
-
-            file_path: str = f'{self.base_dir}/{file_name}'
-            path_exists = exists(file_path)
-
-            file_ctx = open(
-                file_path, 'r+') if path_exists else open(file_path, 'w+')
-
-            if not path_exists:
-                dump(file_data, file_ctx, indent=4)
-            else:
-                remove(file_path)
-                self.write_file(file_data, file_name)
-
-        except Exception as e:
-            self.handle_error(e, 'Error occured while writing to file')
-
-    def get_url(self) -> str:
-        try:
-            return self.url
-        except Exception as e:
-            print(e, 'Error occured during login')
-
     def end(self, seconds: int) -> None:
         try:
-            self.__duration(seconds)
+            self.duration(seconds)
             return self.chrome_driver.quit()
         except Exception as e:
             self.handle_error(
                 e, 'Error occured while closing the chrome driver')
-
-    def __duration(self, seconds: int = 0) -> None:
-        try:
-            return sleep(seconds)
-        except Exception as e:
-            self.handle_error(e, 'Error occured in chrome driver duration')
