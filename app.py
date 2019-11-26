@@ -2,18 +2,18 @@ from lib import Scrape
 from typing import List
 
 def main():
-    url: str = 'https://www.linkedin.com/'
     seconds: int = 60
     username: str = ''
     password: str = ''
 
-    # Navigates to the url specified
-    scrapper = Scrape(url)
+    # Navigates to Linkedin's website
+    scrapper = Scrape()
 
     # Takes in credentials to login into the url sepecified
     scrapper.login(username=username, password=password)
 
     # Scroll to the bottom of page for 10 seconds
+    # The longer you scroll the more data you collect from linkedin
     scrapper.scroll_to_bottom(10)
 
     # Returns a list of all images on website
@@ -29,7 +29,7 @@ def main():
     }
 
     # create and write file data to json file
-    scrapper.write_file(file_data, 'data.json')
+    scrapper.write_file(file_data, 'data-2.json')
 
     # Uncomment to end the selenium chrome driver after 60 seconds
     # scrapper.end(seconds)

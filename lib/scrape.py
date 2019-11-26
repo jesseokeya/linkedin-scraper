@@ -6,7 +6,7 @@ from os.path import abspath, dirname
 from .helper import Helper
 
 class Scrape(Helper):
-    def __init__(self, url: str = ''):
+    def __init__(self, url: str = 'https://www.linkedin.com/'):
         self.url = url
         self.base_dir = dirname(dirname(abspath(__file__)))
         super().__init__(self.url, self.base_dir)
