@@ -5,6 +5,7 @@ from os.path import abspath, dirname
 
 from .helper import Helper
 
+
 class Scrape(Helper):
     def __init__(self, url: str = 'https://www.linkedin.com/'):
         self.url = url
@@ -71,6 +72,33 @@ class Scrape(Helper):
             return results
         except Exception as e:
             self.handle_error(e, 'Error occured while retrieving videos')
+
+    def navigate_to(self, path: str = '', **kwargs) -> None:
+        driver: WebDriver = self.chrome_driver
+        paths: set = {
+            'home': "//a[@data-link-to='feed']",
+            'jobs': "//a[@data-link-to='jobs']",
+            'network': "//a[@data-link-to='mynetwork']",
+            'messages': "//a[@data-link-to='messaging']",
+            'notifications': "//a[@data-link-to='notifications']",
+            'profile': "//a[@class='tap-target block link-without-hover-visited ember-view']"
+        }
+        valid_paths: List[str] = paths.keys()
+        multiple_paths: List[str] = kwargs.get('multiple')
+        duration: int = kwargs.get('duration')
+
+        if (multiple_paths == None) and (not path in valid_paths):
+            raise Exception(f'invalid navigation path {path}')
+
+        if multiple_paths != None and isinstance(multiple_paths, list):
+            for item in multiple_paths:
+                driver.find_element_by_xpath(paths[item]).click()
+                if duration != None and duration > 0:
+                    self.duration(duration)
+        else:
+            driver.find_element_by_xpath(paths[path]).click()
+            if duration != None and duration > 0:
+                    self.duration(duration)
 
     def scroll_to_bottom(self, scroll_time_limit: int = 5) -> None:
         try:
