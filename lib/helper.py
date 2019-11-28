@@ -21,19 +21,15 @@ class Helper:
         try:
             file_data: set = args[0]
             file_name: str = args[1]
-
             file_path: str = f'{self.base_dir}/{file_name}'
             path_exists = exists(file_path)
-
             file_ctx = open(
                 file_path, 'r+') if path_exists else open(file_path, 'w+')
-
             if not path_exists:
                 dump(file_data, file_ctx, indent=4)
             else:
                 remove(file_path)
                 self.write_file(file_data, file_name)
-
         except Exception as e:
             self.handle_error(e, 'Error occured while writing to file')
 

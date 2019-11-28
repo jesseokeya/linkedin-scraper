@@ -14,10 +14,10 @@ def main():
     scrapper.login(username=username, password=password)
 
     # Navigate to specified pages on the website
-    scrapper.navigate_to('profile', duration=5)
+    scrapper.navigate_to('profile', duration=2)
     scrapper.navigate_to(
         multiple=['notifications', 'messages', 'network', 'jobs', 'home'],
-        duration=5
+        duration=2
     )
 
     # Scroll to the bottom of page for 10 seconds
