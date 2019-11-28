@@ -111,7 +111,7 @@ class Scrape(Helper):
             self.handle_error(
                 e, 'Error occured while scrolling page to bottom')
 
-    def end(self, seconds: int) -> None:
+    def end(self, seconds: int = 0) -> None:
         try:
             self.duration(seconds)
             return self.chrome_driver.quit()
