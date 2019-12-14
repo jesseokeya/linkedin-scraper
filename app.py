@@ -36,6 +36,9 @@ def main():
         'videos': videos
     }
 
+    # print scrapped information before saving to file
+    print(file_data)
+
     # create and write file data to json file
     scrapper.write_file(file_data, 'data.json')
 
