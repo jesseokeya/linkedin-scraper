@@ -8,27 +8,27 @@ def main():
     password: str = ''
 
     # Navigates to Linkedin's website
-    scrapper = Scrape()
+    scraper = Scrape()
 
     # Takes in credentials to login into the url sepecified
-    scrapper.login(username=username, password=password)
+    scraper.login(username=username, password=password)
 
     # Navigate to specified pages on the website
-    scrapper.navigate_to('profile', duration=2)
-    scrapper.navigate_to(
+    scraper.navigate_to('profile', duration=2)
+    scraper.navigate_to(
         multiple=['notifications', 'messages', 'network', 'jobs', 'home'],
         duration=2
     )
 
     # Scroll to the bottom of page for 10 seconds
     # The longer you scroll the more data you collect from linkedin
-    scrapper.scroll_to_bottom(10)
+    scraper.scroll_to_bottom(10)
 
     # Returns a list of all images on website
-    images: List[str] = scrapper.retrieve_images()
+    images: List[str] = scraper.retrieve_images()
 
     # Returns a list of all videos on website
-    videos: List[str] = scrapper.retrieve_videos()
+    videos: List[str] = scraper.retrieve_videos()
 
     # Build data scrapped into a set
     file_data: set = {
@@ -40,10 +40,9 @@ def main():
     print(file_data)
 
     # create and write file data to json file
-    scrapper.write_file(file_data, 'data.json')
+    scraper.write_file(file_data, 'data.json')
 
     # Uncomment to end the selenium chrome driver after 60 seconds
-    # scrapper.end(seconds)
-
+    # scraper.end(seconds)
 
 main()
