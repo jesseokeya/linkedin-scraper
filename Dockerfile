@@ -9,10 +9,8 @@ COPY . /app
 WORKDIR /app
 
 # install chromedriver
-RUN apk update
-RUN set -xe \ 
-    && rm -rvf chromedriver \
-    && rm -rvf data.json \
+RUN apk update \
+    && set -xe \ 
     && apk add chromium chromium-chromedriver
 
 # upgrade pip

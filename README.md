@@ -13,5 +13,5 @@ To run this application without using docker you need to download a [chromedrive
 
 ## Running application in docker
 * Build `docker build -t linkedin-scraper:latest .`
-* Run `docker run -it linkedin-scraper:latest`
+* Run `docker run -it -v ./:/app linkedin-scraper:latest`
 * SSH into running container (optional) `docker exec -it <container_id> sh`
