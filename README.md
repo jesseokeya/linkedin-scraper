@@ -1,4 +1,4 @@
-# linkedin-scrapper
+# linkedin-scraper
 Simple selenium web crawler used to fetch information (url to images and videos) from linkedIn and saves it to a file `data.json`
 
 ## Guide
