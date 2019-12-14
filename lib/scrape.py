@@ -16,8 +16,13 @@ class Scrape(Helper):
         self.chrome_options.add_argument('--headless')
         self.chrome_options.add_argument('--disable-gpu')
         self.chrome_exec = f'{self.base_dir}/chromedriver'
-        # executable_path=self.chrome_exec
-        self.chrome_driver = webdriver.Chrome(chrome_options=self.chrome_options)
+        if self.getPlatform() == 'Darwin':
+            self.chrome_driver = webdriver.Chrome(
+                executable_path=self.chrome_exec)
+        else:
+            self.chrome_driver = webdriver.Chrome(
+                chrome_options=self.chrome_options)
+
         self.chrome_driver.get(self.url)
         self.chrome_driver.implicitly_wait(5)
 

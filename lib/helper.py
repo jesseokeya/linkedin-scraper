@@ -2,6 +2,7 @@ from os import remove
 from time import sleep
 from os.path import exists
 from json import dump, load
+from platform import system
 
 class Helper:
     def __init__(self, url: str, base_dir: str):
@@ -38,3 +39,9 @@ class Helper:
             return sleep(seconds)
         except Exception as e:
             self.handle_error(e, 'Error occured in chrome driver duration')
+    
+    def getPlatform(self) -> str:
+        try:
+            return system()
+        except Exception as e:
+            self.handle_error(e, 'Error occured while trying to get the os platform')
