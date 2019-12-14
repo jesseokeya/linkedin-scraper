@@ -22,7 +22,6 @@ ENV VIRTUAL_ENV=/venv
 RUN python3 -m venv venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-RUN pip3 install -r requirements.txt \ 
-    && ls -a
+RUN pip3 install -r requirements.txt
 
 CMD ["python3", "app.py"]
