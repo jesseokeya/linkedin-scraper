@@ -11,8 +11,13 @@ class Scrape(Helper):
         self.url = url
         self.base_dir = dirname(dirname(abspath(__file__)))
         super().__init__(self.url, self.base_dir)
+        self.chrome_options = webdriver.ChromeOptions()
+        self.chrome_options.add_argument('--no-sandbox')
+        self.chrome_options.add_argument('--headless')
+        self.chrome_options.add_argument('--disable-gpu')
         self.chrome_exec = f'{self.base_dir}/chromedriver'
-        self.chrome_driver = webdriver.Chrome(executable_path=self.chrome_exec)
+        # executable_path=self.chrome_exec
+        self.chrome_driver = webdriver.Chrome(chrome_options=self.chrome_options)
         self.chrome_driver.get(self.url)
         self.chrome_driver.implicitly_wait(5)
 

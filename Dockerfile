@@ -1,15 +1,28 @@
-FROM selenium/standalone-chrome:latest
+FROM python:3.6-alpine3.7
+
+# update apk repo
+RUN echo "http://dl-4.alpinelinux.org/alpine/v3.7/main" >> /etc/apk/repositories && \
+    echo "http://dl-4.alpinelinux.org/alpine/v3.7/community" >> /etc/apk/repositories
 
 COPY . /app
 
 WORKDIR /app
 
-ENV SHELL=/bin/bash
+# install chromedriver
+RUN apk update
+RUN set -xe \ 
+    && rm -rvf chromedriver \
+    && rm -rvf data.json \
+    && apk add chromium chromium-chromedriver
 
-RUN sudo apt-get update && sudo apt-get install python python-dev virtualenv python3-pip \
-    rm -rf /var/cache/apk/*
+# upgrade pip
+RUN pip install --upgrade pip
 
-RUN virtualenv venv -p python3 \
-    source ./venv/bin/activate
+ENV VIRTUAL_ENV=/venv
+RUN python3 -m venv venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-CMD [ "python", "app.py"]
+RUN pip3 install -r requirements.txt \ 
+    && ls -a
+
+CMD ["python3", "app.py"]
