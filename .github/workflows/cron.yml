@@ -18,7 +18,7 @@ jobs:
 
       - name: Runs application with custom environment variables after building
         run: |
-          docker run -d -v $(pwd):/app linkedin-scraper:latest
+          docker run -t -v $(pwd):/app linkedin-scraper:latest
         env:
           EMAIL: ${{ secrets.EMAIL }}
           PASSWORD: ${{ secrets.PASSWORD }}
