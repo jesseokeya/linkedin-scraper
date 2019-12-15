@@ -1,11 +1,11 @@
 from lib import Scrape
 from typing import List
-
+from os import environ
 
 def main():
     seconds: int = 60
-    username: str = ''
-    password: str = ''
+    username: str = environ.get('EMAIL')
+    password: str = environ.get('PASSWORD')
 
     # Navigates to Linkedin's website
     scraper = Scrape()
