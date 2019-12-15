@@ -2,10 +2,10 @@ name: LinkedIn Scraper
 
 on: [push, pull_request]
 
-on:
-  schedule:
-    # * is a special character in YAML so you have to quote this string
-    - cron:  '* */2 * * *'
+# on:
+#   schedule:
+#     # * is a special character in YAML so you have to quote this string
+#     - cron:  '* */2 * * *'
 
 jobs:
   build:
