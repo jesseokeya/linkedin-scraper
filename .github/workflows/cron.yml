@@ -1,0 +1,22 @@
+name: LinkedIn Scraper
+
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '* */2 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Builds and runs tests
+        run: |
+          docker build -t linkedin-scraper:latest .
+
+      - name: Runs application with custom environment variables after building
+        run: |
+          docker run -it -v $(pwd):/app linkedin-scraper:latest
+        env:
+          EMAIL: ${{ secrets.EMAIL }}
+          PASSWORD: ${{ secrets.PASSWORD }}
