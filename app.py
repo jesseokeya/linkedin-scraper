@@ -4,8 +4,8 @@ from typing import List
 
 def main():
     seconds: int = 60
-    username: str = ''
-    password: str = ''
+    username: str = 'jesseokeya@gmail.com'
+    password: str = 'Chukwudifu1'
 
     # Navigates to Linkedin's website
     scrapper = Scrape()
@@ -16,7 +16,7 @@ def main():
     # Navigate to specified pages on the website
     scrapper.navigate_to('profile', duration=2)
     scrapper.navigate_to(
-        multiple=['notifications', 'messages', 'network', 'jobs', 'home'],
+        multiple=['notifications', 'messages', 'network', 'jobs' 'home'],
         duration=2
     )
 
