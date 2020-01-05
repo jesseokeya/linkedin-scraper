@@ -4,8 +4,8 @@ from typing import List
 
 def main():
     seconds: int = 60
-    username: str = 'jesseokeya@gmail.com'
-    password: str = 'Chukwudifu1'
+    username: str = ''
+    password: str = ''
 
     # Navigates to Linkedin's website
     scrapper = Scrape()
